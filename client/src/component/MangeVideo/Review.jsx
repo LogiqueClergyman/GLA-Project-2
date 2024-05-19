@@ -33,7 +33,7 @@ function Review({ courseDetails, userId }) {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `http://localhost:8080/cource/setReview/${courseId}`,
+        `https://learn-up-lime.vercel.app/cource/setReview/${courseId}`,
         {
           star: rating,
           comment: comment,
@@ -131,48 +131,48 @@ function Review({ courseDetails, userId }) {
             Some Reviews
           </h1>
           <div className="flex flex-wrap gap-7 mt-12">
-  {courseDetails && courseDetails.review &&
-    courseDetails.review.map((review, index) => {
-      if (review.createBy && review.createBy._id !== userId) { 
-        return (
-          <div
-            key={index}
-            className="ring-2 p-4 sm:w-[20%] flex flex-col gap-y-3 "
-          >
-            <div className="flex gap-x-5 items-center">
-              <img
-                src={
-                  review.createBy.profileImage ||
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlPViCqVyGRxdQtmHT-5rBlQoa1XJsMwkOdQ3A-hEWfkYMRLG-S-LRYCLcGteHqbSF4Kk&usqp=CAU"
+            {courseDetails &&
+              courseDetails.review &&
+              courseDetails.review.map((review, index) => {
+                if (review.createBy && review.createBy._id !== userId) {
+                  return (
+                    <div
+                      key={index}
+                      className="ring-2 p-4 sm:w-[20%] flex flex-col gap-y-3 "
+                    >
+                      <div className="flex gap-x-5 items-center">
+                        <img
+                          src={
+                            review.createBy.profileImage ||
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlPViCqVyGRxdQtmHT-5rBlQoa1XJsMwkOdQ3A-hEWfkYMRLG-S-LRYCLcGteHqbSF4Kk&usqp=CAU"
+                          }
+                          className="h-12 w-12 rounded-full"
+                          alt="Profile"
+                        />
+                        <span className="text-xl font-semibold text-gray-800">
+                          {review.createBy.name}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-x-2">
+                        {[...Array(review.star)].map((_, index) => (
+                          <img
+                            key={index} // Add a unique key for each iteration
+                            src={Star}
+                            className="h-5"
+                            alt="Start"
+                            srcSet=""
+                          />
+                        ))}
+                      </div>
+                      <p className="text-gray-800 text-lg font-semibold">
+                        {review.comment}
+                      </p>
+                    </div>
+                  );
                 }
-                className="h-12 w-12 rounded-full"
-                alt="Profile"
-              />
-              <span className="text-xl font-semibold text-gray-800">
-                {review.createBy.name}
-              </span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              {[...Array(review.star)].map((_, index) => (
-                <img
-                  key={index} // Add a unique key for each iteration
-                  src={Star}
-                  className="h-5"
-                  alt="Start"
-                  srcSet=""
-                />
-              ))}
-            </div>
-            <p className="text-gray-800 text-lg font-semibold">
-              {review.comment}
-            </p>
+                return null;
+              })}
           </div>
-        );
-      }
-      return null;
-    })}
-</div>
-
         </div>
       </div>
     </div>

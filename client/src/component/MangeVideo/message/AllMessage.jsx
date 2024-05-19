@@ -19,7 +19,7 @@ function AllMessage() {
   const fetchData = async (userId) => {
     try {
       const getAllUser = await axios.get(
-        `http://localhost:8080/chat/conversation/${userId}`
+        `https://learn-up-lime.vercel.app/chat/conversation/${userId}`
       );
       const allUserData = getAllUser.data;
 
@@ -44,7 +44,7 @@ function AllMessage() {
 
   const getMessage = async (e, id) => {
     e.preventDefault();
-    
+
     const data = {
       senderId: myEmail,
       receiverId: id,
@@ -52,7 +52,7 @@ function AllMessage() {
     setCurrentRecieverEmail(id);
     try {
       const conversationResponse = await axios.post(
-        "http://localhost:8080/chat/conversation/add",
+        "https://learn-up-lime.vercel.app/chat/conversation/add",
         data
       );
       const conversationId = conversationResponse.data.user._id;
@@ -60,7 +60,7 @@ function AllMessage() {
       setCurrentConversation(conversationId);
 
       const messagesResponse = await axios.get(
-        `http://localhost:8080/chat/message/get/${conversationId}`
+        `https://learn-up-lime.vercel.app/chat/message/get/${conversationId}`
       );
       const messages = messagesResponse.data;
       //   console.log(messages);
@@ -87,10 +87,10 @@ function AllMessage() {
   const onHandleSubmit = async (e) => {
     e.preventDefault();
     socket.current.emit("sendMessage", {
-        senderId: myEmail,
-        receiverId: currentRecieverEmail,
-        text: newMessage,
-      });
+      senderId: myEmail,
+      receiverId: currentRecieverEmail,
+      text: newMessage,
+    });
     let MessageData = {
       senderId: userId,
       conversationId: currentconversation,
@@ -100,7 +100,7 @@ function AllMessage() {
     console.log(MessageData);
     try {
       const backData = await axios.post(
-        `http://localhost:8080/chat/message/add`,
+        `https://learn-up-lime.vercel.app/chat/message/add`,
         MessageData
       );
       //   console.log(backData.data);
@@ -135,8 +135,13 @@ function AllMessage() {
   }, [myEmail]);
 
   useEffect(() => {
-    console.log(singleSocketMessage, currentRecieverEmail, currentRecieverEmail===singleSocketMessage.senderId);
-    singleSocketMessage && (currentRecieverEmail===singleSocketMessage.senderId[0]) &&
+    console.log(
+      singleSocketMessage,
+      currentRecieverEmail,
+      currentRecieverEmail === singleSocketMessage.senderId
+    );
+    singleSocketMessage &&
+      currentRecieverEmail === singleSocketMessage.senderId[0] &&
       setMessage((prev) => [...prev, singleSocketMessage]);
   }, [singleSocketMessage, currentRecieverEmail]);
 
@@ -183,7 +188,7 @@ function AllMessage() {
           <div className="w-full h-full">
             {message?.length > 0 && (
               <>
-                <div  className="ml-5 gap-y-3 h-[73dvh] overflow-auto flex flex-col ">
+                <div className="ml-5 gap-y-3 h-[73dvh] overflow-auto flex flex-col ">
                   {message?.length > 0 ? (
                     message.map((mes, idx) => (
                       <Chatting

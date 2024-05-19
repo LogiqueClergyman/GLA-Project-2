@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-
 export default function Signup() {
   const initialValue = {
     name: "",
@@ -12,7 +11,6 @@ export default function Signup() {
     password: "",
     CurrentUserType: "User",
   };
-  
 
   const navigate = useNavigate();
   const [userData, setUserData] = useState(initialValue);
@@ -39,7 +37,7 @@ export default function Signup() {
     debounceTimeout = setTimeout(() => {
       try {
         axios
-          .post("http://localhost:8080/register", userData)
+          .post("https://learn-up-lime.vercel.app/register", userData)
           .then((response) => {
             console.log(response.data);
             if (response.data.error) {

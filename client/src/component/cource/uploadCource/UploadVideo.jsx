@@ -117,7 +117,7 @@ const UploadVideo = () => {
       setIsSubmit(true);
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:8080/cource/uploadVideo",
+        "https://learn-up-lime.vercel.app/cource/uploadVideo",
         userData,
         {
           headers: {

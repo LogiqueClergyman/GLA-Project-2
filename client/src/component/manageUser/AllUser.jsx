@@ -16,11 +16,14 @@ function AllUser() {
   const fetchUserData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:8080/getallUser", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        "https://learn-up-lime.vercel.app/getallUser",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setUserData(response.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -32,16 +35,20 @@ function AllUser() {
     console.log(id);
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post("http://localhost:8080/deletUser", {id},{
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        "https://learn-up-lime.vercel.app/deletUser",
+        { id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setChange(!change);
-      notify1(response.data.meassage)
+      notify1(response.data.meassage);
     } catch (error) {
       console.error("Error fetching user data:", error);
-      notify4(response.data.error)
+      notify4(response.data.error);
     }
   };
 
@@ -67,39 +74,45 @@ function AllUser() {
             </tr>
           </thead>
           <tbody>
-            {userData && userData.map((user) => (
-              <tr key={user._id} className="border border-gray-300">
-                <td onClick={()=> navigate("/UserProfile", { state: { email: user.email } })}  className="cursor-pointer hover:text-blue-400 border border-gray-300 px-4 py-2">
-                  {user.name}
-                </td>
-                <td  className="border border-gray-300 px-4 py-2">
-                  {user.email}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {user.role}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {new Date(user.createdAt).toLocaleDateString()}
-                </td>
-                <td className="border border-gray-300  px-4 py-2">
-                  {user.verified ? (
-                    <span class="material-symbols-outlined cursor-pointer text-green-700 ">
-                      verified_user
-                    </span>
-                  ) : (
-                    <img className="h-5 " src={NotVerified} alt="Not" />
-                  )}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  <img
-                  onClick={(e)=>handleDelete(e, user._id)}
-                    src={Delete}
-                    className="h-9 w-6 mx-auto cursor-pointer"
-                    alt="Delete"
-                  />
-                </td>
-              </tr>
-            ))}
+            {userData &&
+              userData.map((user) => (
+                <tr key={user._id} className="border border-gray-300">
+                  <td
+                    onClick={() =>
+                      navigate("/UserProfile", { state: { email: user.email } })
+                    }
+                    className="cursor-pointer hover:text-blue-400 border border-gray-300 px-4 py-2"
+                  >
+                    {user.name}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {user.email}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {user.role}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {new Date(user.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="border border-gray-300  px-4 py-2">
+                    {user.verified ? (
+                      <span class="material-symbols-outlined cursor-pointer text-green-700 ">
+                        verified_user
+                      </span>
+                    ) : (
+                      <img className="h-5 " src={NotVerified} alt="Not" />
+                    )}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <img
+                      onClick={(e) => handleDelete(e, user._id)}
+                      src={Delete}
+                      className="h-9 w-6 mx-auto cursor-pointer"
+                      alt="Delete"
+                    />
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

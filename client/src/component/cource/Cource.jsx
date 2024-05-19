@@ -24,7 +24,7 @@ export default function Cource() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/cource/getAllCourses"
+        "https://learn-up-lime.vercel.app/cource/getAllCourses"
       );
       // console.log(response.data.courses);
       setCourses(response.data.courses);

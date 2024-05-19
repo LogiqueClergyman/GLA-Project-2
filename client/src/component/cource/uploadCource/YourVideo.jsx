@@ -19,11 +19,15 @@ const YourVideo = () => {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post("http://localhost:8080/cource/getCourses", {role} ,{
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        "https://learn-up-lime.vercel.app/cource/getCourses",
+        { role },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(response.data);
       setCourses(response.data.courses);
     } catch (error) {
@@ -35,7 +39,7 @@ const YourVideo = () => {
       const id = deleteIndex;
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:8080/cource/deleteCourse",
+        "https://learn-up-lime.vercel.app/cource/deleteCourse",
         { id },
         {
           headers: {
@@ -83,7 +87,6 @@ const YourVideo = () => {
                   {course.extraDescription}
                 </p>
               </div>
-              
             </div>
             <div className="w-full my-1 bg-white md:rounded-xl rounded-md">
               <div className="flex md:justify-end justify-start p-1">

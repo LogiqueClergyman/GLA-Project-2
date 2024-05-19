@@ -31,7 +31,7 @@ const Profile = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:8080/cource/getMyCourses",
+        "https://learn-up-lime.vercel.app/cource/getMyCourses",
         { email },
         {
           headers: {
@@ -67,7 +67,7 @@ const Profile = () => {
       console.log(email);
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:8080/cource/getCourses",
+        "https://learn-up-lime.vercel.app/cource/getCourses",
         { email },
         {
           headers: {
@@ -85,7 +85,7 @@ const Profile = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:8080/getTxns",
+        "https://learn-up-lime.vercel.app/getTxns",
         { email },
         {
           headers: {
@@ -123,7 +123,7 @@ const Profile = () => {
       console.log(imageUrl);
       const token = localStorage.getItem("token");
       const response = await axios.put(
-        `http://localhost:8080/updateProfileImage`,
+        `https://learn-up-lime.vercel.app/updateProfileImage`,
         { imageUrl: url },
         {
           headers: {

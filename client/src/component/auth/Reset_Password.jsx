@@ -23,12 +23,12 @@ function Reset_Password() {
     } else {
       try {
         const res = await axios.post(
-          "http://localhost:8080/reset-password",
+          "https://learn-up-lime.vercel.app/reset-password",
           { password: password, token: token }
         );
         console.log(res.data);
         notify1("Password reset successfully!");
-        navigate('/signin')
+        navigate("/signin");
       } catch (err) {
         console.log(err.response.data.message);
         notify2(err.response.data.message);

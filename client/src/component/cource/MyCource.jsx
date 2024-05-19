@@ -1,13 +1,12 @@
 import { Fade } from "react-awesome-reveal";
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import VideoWindow from "../MangeVideo/VideoWindow";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import { Helmet } from "react-helmet";
 
 export default function MyCource() {
-
   const [courses, setCourses] = useState([]);
   const [filteredCourse, setfilteredCourse] = useState([]);
   const navigate = useNavigate();
@@ -19,21 +18,31 @@ export default function MyCource() {
 
   const fetchData = async (email) => {
     try {
-      const token = localStorage.getItem('token')
-      const response = await axios.post('http://localhost:8080/cource/getMyCourses',{email},{
-        headers:{
-          Authorization:`Bearer ${token}`
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "https://learn-up-lime.vercel.app/cource/getMyCourses",
+        { email },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
       setCourses(response.data.courses);
       setfilteredCourse(response.data.courses);
     } catch (error) {
-      console.error('Error fetching courses:', error);
+      console.error("Error fetching courses:", error);
     }
   };
 
   const handleSelectCourse = (syllabus, url, cource) => {
-    navigate('/VWindow', { state: { selectedSyllabus: syllabus, selectedVideoUrl: url, courceData: cource } });
+    navigate("/VWindow", {
+      state: {
+        selectedSyllabus: syllabus,
+        selectedVideoUrl: url,
+        courceData: cource,
+      },
+    });
   };
   console.log(filteredCourse);
 
@@ -57,7 +66,10 @@ export default function MyCource() {
       <Helmet>
         <title>LearnUp | Courses Page</title>
         <meta name="description" content="LearnUp Courses Page" />
-        <meta name="keywords" content="LearnUp, intership, LearnUp, Home, Study, Contest, Education, Learning platform, course, buy courses, courses" />
+        <meta
+          name="keywords"
+          content="LearnUp, intership, LearnUp, Home, Study, Contest, Education, Learning platform, course, buy courses, courses"
+        />
       </Helmet>
       <div className=" text-white text-center flex justify-center">
         <div>
@@ -110,55 +122,63 @@ export default function MyCource() {
       {/* <div className="bg-gray-200 md:w-3/4 rounded-md flex flex-wrap justify-center bg-gradient-to-tr from-indigo-300  to-indigo-700 min-h-screen"> */}
       {filteredCourse.length === 0 ? (
         <>
-        <div className="h-[100dvh] w-[100vw] flex">
-          <h1 className="m-auto font-semibold text-xl mt-[15%]">
-            Select the couce first
-            <br />
-            No cource selected
-          </h1>
-        </div>
+          <div className="h-[100dvh] w-[100vw] flex">
+            <h1 className="m-auto font-semibold text-xl mt-[15%]">
+              Select the couce first
+              <br />
+              No cource selected
+            </h1>
+          </div>
         </>
-      ):
-        (<div className="md:w-[95%] md:mx-auto rounded-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0">
-        <Fade cascade damping={0.5} triggerOnce={true}>
-        {filteredCourse.map((course, indx) => (
-            <div className="m-2 group" key={indx}>
-            <div className="w-sm group-hover:translate-y-2 group-hover:translate-x-1 group-hover:rounded-3xl transition-all duration-300 ease-in-out bg-white border border-gray-200 rounded-t-3xl relative group-hover:shadow-2xl group-hover:shadow-blue-900">
-              <a href="#">
-                <img
-                  className="rounded-3xl group-hover:rounded-t-3xl w-full"
-                  src="https://source.unsplash.com/user/erondu/400x200"
-                  alt=""
-                />
-              </a>
-              <div className="p-5">
-                <a href="#">
-                  <h5 className="truncate mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {course.title}
-                  </h5>
-                </a>
-                <div className="absolute overflow-auto top-0 left-0 w-full h-full bg-white bg-opacity-90 p-5 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 group-hover:rounded-3xl">
-                  <div className="duration-700 transition transform ease-in-out group-hover:-translate-y-0 translate-y-16">
-                    <button 
-                      onClick={() => handleSelectCourse(course.syllabus, course.courseUrl, course)}
-                      className="border-2 mb-5 border-blue-500 text-sm font-medium text-center text-gray-500 rounded-lg hover:bg-blue-400 hover:text-white p-2 focus:ring-1  focus:ring-blue-300"
-                    >
-                      Start Course
-                    </button>
+      ) : (
+        <div className="md:w-[95%] md:mx-auto rounded-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0">
+          <Fade cascade damping={0.5} triggerOnce={true}>
+            {filteredCourse.map((course, indx) => (
+              <div className="m-2 group" key={indx}>
+                <div className="w-sm group-hover:translate-y-2 group-hover:translate-x-1 group-hover:rounded-3xl transition-all duration-300 ease-in-out bg-white border border-gray-200 rounded-t-3xl relative group-hover:shadow-2xl group-hover:shadow-blue-900">
+                  <a href="#">
+                    <img
+                      className="rounded-3xl group-hover:rounded-t-3xl w-full"
+                      src="https://source.unsplash.com/user/erondu/400x200"
+                      alt=""
+                    />
+                  </a>
+                  <div className="p-5">
+                    <a href="#">
+                      <h5 className="truncate mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {course.title}
+                      </h5>
+                    </a>
+                    <div className="absolute overflow-auto top-0 left-0 w-full h-full bg-white bg-opacity-90 p-5 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 group-hover:rounded-3xl">
+                      <div className="duration-700 transition transform ease-in-out group-hover:-translate-y-0 translate-y-16">
+                        <button
+                          onClick={() =>
+                            handleSelectCourse(
+                              course.syllabus,
+                              course.courseUrl,
+                              course
+                            )
+                          }
+                          className="border-2 mb-5 border-blue-500 text-sm font-medium text-center text-gray-500 rounded-lg hover:bg-blue-400 hover:text-white p-2 focus:ring-1  focus:ring-blue-300"
+                        >
+                          Start Course
+                        </button>
+                      </div>
+                      <div className="text-gray-800 dark:text-gray-300 duration-700 transition transform ease-in-out group-hover:-translate-y-0 translate-y-16">
+                        Descr: {course.description}
+                        <br />
+                        <br />
+                        <br />
+                        {/* A bunch of things about the course Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo, assumenda ipsum natus eaque atque unde! Necessitatibus molestias qui nobis est. Lorem ipsum dolor sit amet consectetur adipisicing elit. */}
+                      </div>
+                      <div>Extra :{course.extraDescription}</div>
+                    </div>
                   </div>
-                  <div className="text-gray-800 dark:text-gray-300 duration-700 transition transform ease-in-out group-hover:-translate-y-0 translate-y-16">
-                    Descr: {course.description}
-                    <br /><br /><br />
-                    {/* A bunch of things about the course Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo, assumenda ipsum natus eaque atque unde! Necessitatibus molestias qui nobis est. Lorem ipsum dolor sit amet consectetur adipisicing elit. */}
-                  </div>
-                  <div>Extra :{course.extraDescription}</div>
                 </div>
               </div>
-            </div>
-          </div>
-        ))}
-        </Fade>
-      </div>
+            ))}
+          </Fade>
+        </div>
       )}
     </div>
   );

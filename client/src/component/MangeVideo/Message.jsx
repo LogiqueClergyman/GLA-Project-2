@@ -39,7 +39,7 @@ function Message({
     console.log(MessageData);
     try {
       const backData = await axios.post(
-        `http://localhost:8080/chat/message/add`,
+        `https://learn-up-lime.vercel.app/chat/message/add`,
         MessageData
       );
       console.log(backData.data);

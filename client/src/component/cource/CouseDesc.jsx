@@ -51,7 +51,7 @@ function CourseDesc() {
       console.log(data);
       console.log("sending to backend");
       const response = await axios.post(
-        "http://localhost:8080/payment/web3",
+        "https://learn-up-lime.vercel.app/payment/web3",
         { data },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -75,7 +75,7 @@ function CourseDesc() {
     }
     // Transaction is confirmed, now send the hash to the backend
     // const response = await axios.post(
-    //   "http://localhost:8080/payment/web3",
+    //   "https://learn-up-lime.vercel.app/payment/web3",
     //   { hash },
     //   {
     //     headers: { Authorization: `Bearer ${token}` },
@@ -110,7 +110,7 @@ function CourseDesc() {
       return;
     }
     const result = await axios.post(
-      "http://localhost:8080/payment/orders",
+      "https://learn-up-lime.vercel.app/payment/orders",
       { price },
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -150,7 +150,7 @@ function CourseDesc() {
         };
         console.log(data);
         const result = await axios.post(
-          "http://localhost:8080/payment/success",
+          "https://learn-up-lime.vercel.app/payment/success",
           { data },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -181,7 +181,7 @@ function CourseDesc() {
     console.log("adding course");
     try {
       const response = await axios.post(
-        "http://localhost:8080/cource/addCourse",
+        "https://learn-up-lime.vercel.app/cource/addCourse",
         { id }, // Assuming the request body requires an object with 'id' property
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -204,7 +204,7 @@ function CourseDesc() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/cource/removeCourse",
+        "https://learn-up-lime.vercel.app/cource/removeCourse",
         { id }, // Assuming the request body requires an object with 'id' property
         { headers: { Authorization: `Bearer ${token}` } }
       );
